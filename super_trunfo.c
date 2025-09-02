@@ -29,7 +29,7 @@ int main(){
     printf("Insira a letra do estado seguida de um número de 01 a 04 (ex: A01, B03): ");
     scanf(" %s", codigo1);
     printf("Insira o nome da cidade: ");
-    scanf(" %[^\n]", &cidade1);
+    scanf(" %[^\n]", cidade1);//Ao revisar o codigo, vi que havia colocaco o "&" antes da cidade1, agora o erro foi corrigido.
     printf("Insira o numero de habitantes da cidade: ");
     scanf("%d", &populacao1);
     printf("Insira a area da cidade em quilometros quadrados: ");
@@ -55,7 +55,7 @@ int main(){
     printf("Insira a letra do estado seguida de um número de 01 a 04 (ex: A01, B03): ");
     scanf(" %s", codigo2);
     printf("Insira o nome da cidade: ");
-    scanf(" %[^\n]", &cidade2);
+    scanf(" %[^\n]", cidade2);//Ao revisar o codigo, vi que havia colocaco o "&" antes da cidade2, agora o erro foi corrigido.
     printf("Insira o numero de habitantes da cidade: ");
     scanf("%d", &populacao2);
     printf("Insira a area da cidade em quilometros quadrados: ");
@@ -65,6 +65,20 @@ int main(){
     printf("Insira a quantidade de pontos turisticos na cidade: ");
     scanf("%d", &pontos_turisticos2);
 
+    /*Agora para o segundo nivel, irei fazer o calculo da densidade populacional (Dividir o numero
+    da população da cidade pela sua área) e do PIB per capita (Dividir o PIB da cidade pela sua população).*/
+    float densidade_populacional1, densidade_populacional2;
+    float pib_per_capita1, pib_per_capita2;
+    densidade_populacional1 = (float) populacao1 / area1;
+    densidade_populacional2 = (float) populacao2 / area2;
+    /*Tive que fazer uma conversao explicita da Populacao de int para float.*/
+
+    pib_per_capita1 = (pib1 * 1000000000) / (float) populacao1;
+    pib_per_capita2 = (pib2 * 1000000000) / (float) populacao2;
+    /*O PIB e calculado em bilhoes de reais, e o PIB per capita em reais, por isso tive que multiplicar
+    por "1000000000", para dar o valor em Reais. E tambem tive que fazer uma conversao explicita
+    da Populacao de int para float.*/
+        
     /*Agora que os dados das duas cartas ja foram preenchidos,
     vou mostrar as cartas para o usuario.*/
     printf("\n");
@@ -80,6 +94,8 @@ int main(){
     printf("Area: %.2f Km²\n", area1);
     printf("PIB: %.2f bilhoes de reais\n", pib1);
     printf("Numero de Pontos Turisticos: %d\n", pontos_turisticos1);
+    printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional1); //Adicionei a Densidade Populacional da carta 1.
+    printf("PIB per Capita: %.2f reais\n", pib_per_capita1); //Adicionei o PIB per Capita da carta 1.
 
     printf("\n"); //Somente para separarar os dados da primeira carta com os dados da segunda carta, de uma forma que nao fique muito junto.
     printf("**********************\n");
@@ -92,6 +108,8 @@ int main(){
     printf("Area: %.2f Km²\n", area2);
     printf("PIB: %.2f bilhoes de reais\n", pib2);
     printf("Numero de Pontos Turisticos: %d\n", pontos_turisticos2);
+    printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional2); //Adicionei a Densidade Populacional da carta 2.
+    printf("PIB per Capita: %.2f reais\n", pib_per_capita2); //Adicionei o PIB per Capita da carta 2.
 
     return 0;
 }
