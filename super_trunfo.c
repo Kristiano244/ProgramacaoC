@@ -16,7 +16,8 @@ int main(){
     char estado1, estado2;
     char codigo1[4], codigo2[4];
     char cidade1[50], cidade2[50];
-    int populacao1, populacao2, pontos_turisticos1, pontos_turisticos2;
+    int pontos_turisticos1, pontos_turisticos2;
+    unsigned long int populacao1, populacao2; //Populacao agora e armazenada em unsigned long int, para armazenar valores maiores.
     float area1, area2, pib1, pib2;
 
     /*Apos as variaveis estarem definidas, vou solicitar que o usuario
@@ -31,7 +32,7 @@ int main(){
     printf("Insira o nome da cidade: ");
     scanf(" %[^\n]", cidade1);//Ao revisar o codigo, vi que havia colocaco o "&" antes da cidade1, agora o erro foi corrigido.
     printf("Insira o numero de habitantes da cidade: ");
-    scanf("%d", &populacao1);
+    scanf("%lu", &populacao1);
     printf("Insira a area da cidade em quilometros quadrados: ");
     scanf("%f", &area1);
     printf("Insira o PIB da cidade: ");
@@ -57,7 +58,7 @@ int main(){
     printf("Insira o nome da cidade: ");
     scanf(" %[^\n]", cidade2);//Ao revisar o codigo, vi que havia colocaco o "&" antes da cidade2, agora o erro foi corrigido.
     printf("Insira o numero de habitantes da cidade: ");
-    scanf("%d", &populacao2);
+    scanf("%lu", &populacao2);
     printf("Insira a area da cidade em quilometros quadrados: ");
     scanf("%f", &area2);
     printf("Insira o PIB da cidade: ");
@@ -78,7 +79,13 @@ int main(){
     /*O PIB e calculado em bilhoes de reais, e o PIB per capita em reais, por isso tive que multiplicar
     por "1000000000", para dar o valor em Reais. E tambem tive que fazer uma conversao explicita
     da Populacao de int para float.*/
-        
+
+    //Adicionando o SUPER PODER de cada carta, que nada mais e que a soma de todos os atributos numericos.
+    //Nao esquecendo de fazer as alteracoes das variaveis para o mesmo tipo.
+    float super_poder_1, super_poder_2;
+    super_poder_1 = (float) populacao1 + area1 + pib1 + (float) pontos_turisticos1 + pib_per_capita1 + (1 / densidade_populacional1);
+    super_poder_2 = (float) populacao2 + area2 + pib2 + (float) pontos_turisticos2 + pib_per_capita2 + (1 / densidade_populacional2);
+    
     /*Agora que os dados das duas cartas ja foram preenchidos,
     vou mostrar as cartas para o usuario.*/
     printf("\n");
@@ -90,12 +97,13 @@ int main(){
     printf("Estado: %c\n", estado1);
     printf("Codigo: %s\n", codigo1);
     printf("Nome da Cidade: %s\n", cidade1);
-    printf("Populacao: %d\n", populacao1);
+    printf("Populacao: %lu\n", populacao1);
     printf("Area: %.2f Km²\n", area1);
     printf("PIB: %.2f bilhoes de reais\n", pib1);
     printf("Numero de Pontos Turisticos: %d\n", pontos_turisticos1);
     printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional1); //Adicionei a Densidade Populacional da carta 1.
     printf("PIB per Capita: %.2f reais\n", pib_per_capita1); //Adicionei o PIB per Capita da carta 1.
+    printf("Super Poder: %.2f\n", super_poder_1); //Adicionei o Super Poder, pra o usuario ver se a comparacao ocorreu de forma correta.
 
     printf("\n"); //Somente para separarar os dados da primeira carta com os dados da segunda carta, de uma forma que nao fique muito junto.
     printf("**********************\n");
@@ -104,12 +112,30 @@ int main(){
     printf("Estado: %c\n", estado2);
     printf("Codigo: %s\n", codigo2);
     printf("Nome da Cidade: %s\n", cidade2);
-    printf("Populacao: %d\n", populacao2);
+    printf("Populacao: %lu\n", populacao2);
     printf("Area: %.2f Km²\n", area2);
     printf("PIB: %.2f bilhoes de reais\n", pib2);
     printf("Numero de Pontos Turisticos: %d\n", pontos_turisticos2);
     printf("Densidade Populacional: %.2f hab/km²\n", densidade_populacional2); //Adicionei a Densidade Populacional da carta 2.
     printf("PIB per Capita: %.2f reais\n", pib_per_capita2); //Adicionei o PIB per Capita da carta 2.
+    printf("Super Poder: %.2f\n", super_poder_2); //Adicionei o Super Poder, pra o usuario ver se a comparacao ocorreu de forma correta.
+
+    /*Agora vamos fazer o comparativo das duas cartas, e mostrar qual a carta é a vencedora em cada
+    aspecto. Tambem coloquei uma legenda para que o usuario saiba qual carta venceu em determinado
+    aspecto.*/
+    printf("\n\n"); //Para separar os dados das cartas com seu comparativo.
+    printf("************************************\n");
+    printf("      COMPARACAO DAS CARTAS\n");
+    printf("************************************\n");
+    printf("Populacao: Carta 1 venceu (%d)\n", populacao1 > populacao2);
+    printf("Area: Carta 1 venceu (%d)\n", area1 > area2);
+    printf("PIB: Carta 1 venceu (%d)\n", pib1 > pib2);
+    printf("Pontos Turisticos: Carta 2 venceu (%d)\n", pontos_turisticos2 > pontos_turisticos1);
+    printf("Densidade Populacional: Carta 2 venceu (%d)\n", densidade_populacional2 < densidade_populacional1);
+    printf("PIB per Capita: Carta 2 venceu (%d)\n", pib_per_capita2 > pib_per_capita1);
+    printf("Super Poder: Carta 1 venceu (%d)\n", super_poder_1 > super_poder_2);
+    printf("\n"); //Somente para separar a legenda da comparacao, e ficar mais legivel para o usuario.
+    printf("Legenda: 1 para Verdadeiro e 0 para Falso.");
 
     return 0;
 }
